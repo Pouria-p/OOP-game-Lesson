@@ -3,7 +3,7 @@ class Player {
     this.width = 20;
     this.height = 20;
     this.positionX = 20;
-    this.positionY = 50;
+    this.positionY = 20;
 
     this.domElement;
     this.createDomElem(); //invoke to create the element
@@ -36,7 +36,7 @@ class Obstacle {
     //const boardElement = document.querySelector("#board");
     this.width = 20;
     this.height = 20;
-    this.positionX = 0; //Math.floor(Math.random() * boardElement.style.width) + 50;
+    this.positionX = Math.floor(Math.random() * (100 - this.width + 1));
     this.positionY = 100;
 
     this.domElement;
@@ -72,6 +72,15 @@ setInterval(() => {
 setInterval(() => {
   obstacles.forEach((obsElem) => {
     obsElem.moveDown();
+    if (
+      player.positionX < obsElem.positionX + obsElem.width &&
+      player.positionX + player.width > obsElem.positionX &&
+      player.positionY < obsElem.positionY + obsElem.height &&
+      player.positionY + player.height > obsElem.positionY
+    ) {
+      console.log("COLLISION");
+      //location.href = "gameOver.html";
+    }
   });
 }, 30);
 window.addEventListener("keydown", (e) => {
