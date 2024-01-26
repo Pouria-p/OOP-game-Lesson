@@ -5,4 +5,9 @@ body {
 #board {
   background-color: lawngreen;
   height: 100vh;
+  position: relative;
+}
+#player {
+  background-color: fuchsia;
+  position: absolute;
 }
