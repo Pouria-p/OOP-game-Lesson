@@ -1,9 +1,10 @@
 class Player {
   constructor() {
-    this.positionX = 20;
-    this.positionY = 50;
     this.width = 20;
     this.height = 20;
+    this.positionX = 20;
+    this.positionY = 50;
+
     this.domElement;
     this.createDomElem(); //invoke to create the element
   }
@@ -32,10 +33,11 @@ class Player {
 
 class Obstacle {
   constructor() {
-    this.positionX = 50;
-    this.positionY = 100;
+    //const boardElement = document.querySelector("#board");
     this.width = 20;
     this.height = 20;
+    this.positionX = 0; //Math.floor(Math.random() * boardElement.style.width) + 50;
+    this.positionY = 100;
 
     this.domElement;
     this.createObstacleElem();
@@ -53,16 +55,25 @@ class Obstacle {
     this.domElement.style.left = this.positionX + "vh";
   }
   moveDown() {
-    this.positionY -= 10;
+    this.positionY--;
     this.domElement.style.bottom = this.positionY + "vh";
   }
 }
 
 const player = new Player();
-const obstacle = new Obstacle();
+const obstacles = [];
+//generate obstacle
 setInterval(() => {
-  obstacle.moveDown();
-}, 5 * 1000);
+  const obstacle = new Obstacle();
+  obstacles.push(obstacle);
+}, 3 * 1000);
+
+//move obstacle
+setInterval(() => {
+  obstacles.forEach((obsElem) => {
+    obsElem.moveDown();
+  });
+}, 30);
 window.addEventListener("keydown", (e) => {
   if (e.code === "ArrowLeft") {
     player.moveLeft();
